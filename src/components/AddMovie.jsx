@@ -1,7 +1,7 @@
 import Modal from './Modal';
 import MovieForm from './MovieForm';
 
-export default function AddMovie() {
+export default function AddMovie({onMovieAdd}) {
   function onSubmitAdd() {
     console.log('on-submit-add-movie');
   }
@@ -31,7 +31,7 @@ export default function AddMovie() {
     };
 
     const addedMovie = await addMovie(moviePayload);
-    console.log('[added-movie: ', addedMovie);
+    onMovieAdd(addedMovie);
     onClose();
   }
 
