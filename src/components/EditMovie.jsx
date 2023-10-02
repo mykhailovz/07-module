@@ -1,7 +1,7 @@
 import Modal from './Modal';
 import MovieForm from './MovieForm';
 
-export default function EditMovie({movie}) {
+export default function EditMovie({movie, onMovieEdit}) {
   function onSubmitEdit() {
     console.log('on-submit-edit-movie');
   }
@@ -39,6 +39,7 @@ export default function EditMovie({movie}) {
   
     const addedMovie = await editMovie(moviePayload);
     console.log('[edit-movie: ', addedMovie);
+    onMovieEdit(addedMovie);
     onClose();
   };
 

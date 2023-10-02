@@ -7,8 +7,6 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
   const [genres, setGenre] = useState(['Drama', 'Bio', 'Sci-Fi', 'Comedy', 'Horrro']);
   const [releaseDate, setReleaseDate] = useState(movie?.releaseDate ? new Date(movie?.releaseDate) : new Date());
 
-  console.log('MovieForm: ', movie)
-
   const {
     register,
     handleSubmit,
