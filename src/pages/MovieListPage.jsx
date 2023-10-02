@@ -5,6 +5,7 @@ import SearchForm from '../components/SearchForm.jsx';
 import GenreSelect from '../components/GenreSelect.jsx';
 import SortControl from '../components/SortControl.jsx';
 import MovieCounter from '../components/MovieCounter.jsx';
+import AddMovie from '../components/AddMovie.jsx';
 
 import useMovies from '../hooks/useMovies.js';
 
@@ -36,14 +37,20 @@ export default function MovieListPage() {
     setSearchParams({ query, genre, sortBy: sortByOptions[selectedSortBy] })
   }
 
+  function handleAdd() {
+    document.getElementById('add-movie').showModal();
+  }
+
   return (
     <>
+      <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={handleAdd}> + Add Movie Modal</button>
       <SearchForm defaultSearchQuery={query} onSearch={onSearch} />
       <Outlet />
       <GenreSelect genres={genres} genre={genre} onSelect={onGenreSelect} />
       <SortControl sortBy={sortBy} onSelect={onSortBySelect} />
       <MovieCounter movies={movies} />
       <MovieList movies={movies} />
+      <AddMovie />
     </>
 
   );
