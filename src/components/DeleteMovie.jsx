@@ -1,16 +1,30 @@
 import Modal from './Modal';
 
-export default function DeleteMovie() {
+export default function DeleteMovie({movie}) {
+  async function deleteMovie(movie) {
+    const response = await fetch(`http://localhost:4000/movies/${movie?.id}`, {
+      method: 'DELETE'
+    });
 
-  function handleDelete() {
-    console.log('delete movie');
+    return response.status;
+  } 
+
+  async function handleDelete() {
+    await deleteMovie(movie);
+    document.getElementById('delete-movie').close();
+  }
+
+  function handleClose() {
     document.getElementById('delete-movie').close();
   }
 
   return (
     <>
       <Modal modalId="delete-movie">
-        <h1 className="uppercase">Delete movie</h1>
+        <div className='flex'>
+          <h1 className="uppercase">Delete movie</h1>
+          <button className='ml-16' onClick={handleClose}>X</button>
+        </div>
         <p>Are you sure you want to delete the movie?</p>
         <button
           onClick={handleDelete}
