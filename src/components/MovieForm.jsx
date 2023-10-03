@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { MovieFormSchema } from '../schemas/MovieForm';
 
 export default function MovieForm({modalId, movie, headerText, onClose, processForm}) {
-  const [genres, setGenre] = useState(['Drama', 'Bio', 'Sci-Fi', 'Comedy', 'Horrro']);
+  const [genres, setGenre] = useState(['all', 'documentary', 'comedy', 'horror','crime']);
   const [releaseDate, setReleaseDate] = useState(movie?.releaseDate ? new Date(movie?.releaseDate) : new Date());
 
   const {
@@ -16,12 +19,13 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
     values: {
       title: movie?.title || '',
       image: movie?.poster_path || '',
-      rating: '',
-      genres: [],
-      duration: '',
+      rating: movie?.rating || '',
+      genres: movie?.genres || [],
+      duration: movie?.description || '',
       description: movie?.overview || '',
-      runtime: movie?.runtime || 0
-    }
+      runtime: movie?.runtime || ''
+    },
+    resolver: zodResolver(MovieFormSchema)
   });
 
   function handleResetClick() {
@@ -48,6 +52,9 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
             name="title"
             {...register('title')}
           />
+          {
+            errors?.title?.message && <p className='text-red-600 text-sm'>{errors?.title?.message}</p>
+          }
         </div>
         <div className="w-full md:w-1/2 px-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -68,6 +75,9 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
             name="movieUrl"
             {...register('image')}
           />
+          {
+            errors?.image?.message && <p className='text-red-600 text-sm'>{errors?.image?.message}</p>
+          }
         </div>
         <div className="w-full md:w-1/2 px-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -80,6 +90,9 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
             name="rating"
             {...register('rating')}
           />
+          {
+            errors?.rating?.message && <p className='text-red-600 text-sm'>{errors?.rating?.message}</p>
+          }
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -99,6 +112,9 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
               (movie?.genres ?? genres).map(genre => <option key={genre} value={genre}>{genre}</option>)
             }
           </select>
+          {
+            errors?.genres?.message && <p className='text-red-600 text-sm'>{errors?.genres?.message}</p>
+          }
         </div>
         <div className="w-full md:w-1/2 px-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -111,6 +127,9 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
             name="runtime"
             {...register('runtime')}
           />
+          {
+            errors?.runtime?.message && <p className='text-red-600 text-sm'>{errors?.runtime?.message}</p>
+          }
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -124,6 +143,9 @@ export default function MovieForm({modalId, movie, headerText, onClose, processF
             id="description"
             {...register('description')}
           />
+          {
+            errors?.description?.message && <p className='text-red-600 text-sm'>{errors?.description?.message}</p>
+          }
         </div>
       </div>
 
