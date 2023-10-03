@@ -13,12 +13,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@hookform/resolvers": "3.3.1",
     "cypress": "13.1.0",
     "react": "18.2.0",
     "react-datepicker": "4.17.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.47.0",
-    "react-router-dom": "6.16.0"
+    "react-router-dom": "6.16.0",
+    "zod": "3.22.2"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "7.4.1",
