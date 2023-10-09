@@ -14,5 +14,5 @@ export default function useMovies(genre, searchQuery, sortBy) {
     };
   }, [genre, searchQuery, sortBy]);
 
-  return [movies, status];
+  return [movies, setMovies];
 }
